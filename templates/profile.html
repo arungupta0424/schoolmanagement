@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+    .success{
+        color:green;
+    }
+    </style>
+</head>
+<body>
+    <h1>This is a profile page...</h1>
+    <p>Last Login: {{lastlogin}}</p>
+    <a href="changepass">Change Password</a>&nbsp;&nbsp;
+    <a href="userlogout">Logout</a>
+    
+    <h1>Welcome {{name}}...</h1>
+    
+    
+    <br><br>
+
+    {% if messages %}
+     {% for message in messages %}
+        <p {% if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</p> 
+     {% endfor %}
+    {% endif %}
+
+    <br><br>
+    <form action="" method="post" novalidate>
+    {% csrf_token %}
+    
+    {% for fm in form %}
+    
+    {{fm.label_tag}} {{fm}} <span class="err">{{fm.errors|striptags}}</span> <br><br>
+    
+    {% endfor %}
+    
+    <input type="submit" value="Save"><br><br>
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="err">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+    </form>
+    
+    
+    
+</body>
+</html>
